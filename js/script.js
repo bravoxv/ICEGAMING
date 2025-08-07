@@ -1,38 +1,28 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const snowflakesContainer = document.querySelector(".snowflakes-container");
+const snowflake = document.createElement("div");
+snowflake.classList.add("snowflake");
 
-    const createSnowflake = () => {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
+const inner = document.createElement("div");
+inner.classList.add("snowflake-inner");
 
-        const size = Math.random() * 5 + 2; // Tamaño entre 2px y 7px
-        const startX = Math.random() * 100; // Posición de inicio horizontal aleatoria
-        const duration = Math.random() * 10 + 5; // Duración de la caída entre 5s y 15s
-        const driftDuration = Math.random() * 5 + 5; // Duración de la oscilación horizontal
-        const delay = Math.random() * 5; // Retraso de la animación
-        const opacity = Math.random() * 0.5 + 0.5; // Opacidad entre 0.5 y 1.0
+// Configurar estilo del copo exterior (posición, tamaño, caída)
+const size = Math.random() * 5 + 2;
+const startX = Math.random() * 100;
+const duration = Math.random() * 10 + 5;
+const delay = Math.random() * 5;
+const driftDuration = Math.random() * 5 + 5;
+const opacity = Math.random() * 0.5 + 0.5;
 
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${startX}vw`;
-        snowflake.style.opacity = opacity;
-        
-        // Aplica las animaciones de forma correcta y simultánea
-        // La animación de caída (fall) se ejecuta una vez y se detiene (forwards)
-        // La animación de deriva (drift) se ejecuta de forma infinita
-        snowflake.style.animation = `
-            fall ${duration}s linear ${delay}s 1 forwards,
-            drift ${driftDuration}s ease-in-out ${delay}s infinite alternate
-        `;
+snowflake.style.width = `${size}px`;
+snowflake.style.height = `${size}px`;
+snowflake.style.left = `${startX}vw`;
+snowflake.style.top = `-10px`;
+snowflake.style.opacity = opacity;
+snowflake.style.animation = `fall ${duration}s linear ${delay}s forwards`;
 
-        snowflakesContainer.appendChild(snowflake);
+inner.style.width = "100%";
+inner.style.height = "100%";
+inner.style.animation = `drift ${driftDuration}s ease-in-out ${delay}s infinite alternate`;
 
-        // Elimina el copo de nieve al terminar la animación de "caída"
-        setTimeout(() => {
-            snowflake.remove();
-        }, (duration + delay) * 1000);
-    };
-
-    // Generar un copo de nieve cada 200ms
-    setInterval(createSnowflake, 200);
-});
+// Anidar y agregar al DOM
+snowflake.appendChild(inner);
+snowflakesContainer.appendChild(snowflake);
