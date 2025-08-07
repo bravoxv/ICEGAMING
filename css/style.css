@@ -43,11 +43,13 @@ body {
     background-color: white;
     border-radius: 50%;
     opacity: 0.7;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    /* La animación se asigna desde JavaScript */
 }
 
 @keyframes fall {
+    from {
+        transform: translateY(-10vh);
+    }
     to {
         transform: translateY(105vh);
     }
@@ -78,31 +80,7 @@ body {
     z-index: 1;
 }
 
-/* ======================== */
-/* HEADER */
-/* ======================== */
-
-header {
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 2.5em;
-    margin: 10px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    color: #0077b6;
-}
-
-header p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-/* ======================== */
-/* BOTONES DE ENLACE */
-/* ======================== */
-
+/* ... (resto del código CSS sin cambios) ... */
 .links-section {
     display: flex;
     flex-direction: column;
@@ -125,15 +103,16 @@ header p {
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
-/* Colores por red */
 .link-button.twitch { background-color: #6441a5; color: #ffffff; }
 .link-button.youtube { background-color: #ff0000; color: #ffffff; }
 .link-button.kick { background-color: #50e417; color: #000000; }
-.link-button.instagram { background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #ffffff; }
+.link-button.instagram {
+    background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: #ffffff;
+}
 .link-button.tiktok { background-color: #000000; color: #ffffff; }
 .link-button.discord { background-color: #5865f2; color: #ffffff; }
 
-/* Hielo al hover (capa posterior) */
 .link-button::after {
     content: '';
     position: absolute;
@@ -153,7 +132,6 @@ header p {
     opacity: 1;
 }
 
-/* Vapor volumétrico (capa intermedia) */
 .link-button::before {
     content: '';
     position: absolute;
@@ -185,7 +163,6 @@ header p {
     }
 }
 
-/* Estado hover general del botón */
 .link-button:hover {
     background-color: transparent;
     color: #e0f2f7;
@@ -193,19 +170,11 @@ header p {
 }
 
 
-/* ======================== */
-/* FOOTER */
-/* ======================== */
-
 footer {
     font-size: 0.8em;
     color: #777;
     margin-top: 20px;
 }
-
-/* ======================== */
-/* RESPONSIVE */
-/* ======================== */
 
 @media (max-width: 600px) {
     h1 {
