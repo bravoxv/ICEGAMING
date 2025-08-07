@@ -23,6 +23,39 @@ body {
     color: #333333;
 }
 
+/* ======================== */
+/* ANIMACIÓN DE COPOS DE NIEVE */
+/* ======================== */
+
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.snowflakes::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(white 1px, transparent 0);
+    background-size: 25px 25px;
+    animation: falling 15s linear infinite;
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
 .container {
     width: 100%;
     max-width: 600px;
@@ -101,7 +134,7 @@ header p {
     background-size: cover;
     background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1s ease-in-out; /* Duración de la transición a 1 segundo */
+    transition: opacity 1s ease-in-out;
     z-index: 1;
 }
 
@@ -119,39 +152,33 @@ header p {
     background-color: transparent;
 }
 
-
 /* Pseudo-elemento para la animación del vapor */
 .link-button::before {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0.1) scaleY(0.5);
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.6); /* Aumento de la opacidad inicial */
-    border-radius: 50%;
+    bottom: 0; /* Inicia desde el borde inferior */
+    left: 0;
+    width: 100%; /* Cubre todo el ancho */
+    height: 100%; /* Cubre todo el alto */
+    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%); /* Gradiente de vapor */
     opacity: 0;
     z-index: 2;
     transition: none;
+    transform: scale(0);
 }
 
 .link-button:hover::before {
-    animation: vapor-spread 2s ease-out forwards; /* Duración de la animación a 2 segundos */
+    animation: vapor-spread 2s ease-out forwards;
 }
 
 @keyframes vapor-spread {
     0% {
-        opacity: 0.8; /* Opacidad inicial más alta */
-        transform: translateX(-50%) translateY(0) scaleX(0.2) scaleY(0.4);
-    }
-    50% {
-        opacity: 0.4; /* Opacidad intermedia */
-        transform: translateX(-50%) translateY(-20px) scaleX(1) scaleY(0.8);
+        opacity: 0.8;
+        transform: scale(0.1);
     }
     100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-50px) scaleX(1.5) scaleY(1.2); /* Mayor recorrido y expansión */
+        transform: scale(1.2);
     }
 }
 
