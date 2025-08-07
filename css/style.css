@@ -35,30 +35,43 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: -2;
+    overflow: hidden;
 }
 
-/* Generamos los copos de nieve usando box-shadow */
+.snowflake {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: fall linear infinite;
+}
+
 .snowflakes::before {
     content: '';
     position: absolute;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    background: transparent;
-    border-radius: 50%;
-    box-shadow: 
-        0px 50vh 3px #fff, 15vw 10vh 2px #fff, 25vw 20vh 4px #fff,
-        35vw 30vh 2px #fff, 45vw 40vh 3px #fff, 55vw 50vh 2px #fff,
-        65vw 60vh 4px #fff, 75vw 70vh 3px #fff, 85vw 80vh 2px #fff,
-        95vw 90vh 4px #fff, -10vw 25vh 3px #fff, -20vw 55vh 2px #fff,
-        -30vw 85vh 4px #fff, -40vw 15vh 2px #fff, -50vw 45vh 3px #fff,
-        -60vw 75vh 2px #fff, -70vw 5vh 4px #fff, -80vw 35vh 3px #fff;
-    animation: falling 15s linear infinite;
+    top: -50vh;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: 
+        radial-gradient(4px 4px rgba(255,255,255,0.8), transparent),
+        radial-gradient(6px 6px rgba(255,255,255,0.6), transparent),
+        radial-gradient(3px 3px rgba(255,255,255,0.7), transparent),
+        radial-gradient(5px 5px rgba(255,255,255,0.5), transparent),
+        radial-gradient(2px 2px rgba(255,255,255,0.9), transparent),
+        radial-gradient(8px 8px rgba(255,255,255,0.4), transparent);
+    background-size: 50px 50px;
+    animation: falling-varied 6s linear infinite;
 }
 
-@keyframes falling {
-    0% { transform: translateY(-100vh); }
-    100% { transform: translateY(100vh); }
+@keyframes falling-varied {
+    0% {
+        transform: translateY(-100vh);
+    }
+    100% {
+        transform: translateY(200vh);
+    }
 }
 
 .container {
@@ -142,14 +155,14 @@ header p {
     background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    z-index: -1;
+    z-index: 1;
 }
 
 .link-button:hover::after {
     opacity: 1;
 }
 
-/* Para que la transición de opacidad funcione correctamente, el fondo del botón debe ser transparente */
+/* Para que la transición de opacidad funcione correctamente */
 .link-button.twitch:hover,
 .link-button.youtube:hover,
 .link-button.kick:hover,
@@ -164,31 +177,30 @@ header p {
 .link-button::before {
     content: '';
     position: absolute;
-    bottom: -100%;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+    height: 150%;
+    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 70%);
     opacity: 0;
-    z-index: -1;
+    z-index: 2;
     transition: none;
-    transform: scale(0.1);
+    transform: translateY(100%) scaleY(0.5);
+    filter: blur(5px);
 }
 
 .link-button:hover::before {
-    animation: vapor-flow 2s ease-out forwards;
+    animation: vapor-flow 1.5s ease-out forwards;
 }
 
 @keyframes vapor-flow {
     0% {
-        opacity: 0.6;
-        bottom: 0;
-        transform: scale(0.1);
+        opacity: 0.7;
+        transform: translateY(0) scaleY(1);
     }
     100% {
         opacity: 0;
-        bottom: 100%;
-        transform: scale(1.5);
+        transform: translateY(-50%) scaleY(1.5);
     }
 }
 
