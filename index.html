@@ -1,35 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICEGAMING - Tus Redes Sociales</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="snowflakes" id="snowflakes-container"></div>
+const snowflakesContainer = document.getElementById("snowflakes-container");
 
-    <div class="container">
-        <header>
-            <h1>¡Hola! Soy ICEGAMING</h1>
-            <p>¡Bienvenido/a! Aquí encontrarás todos mis enlaces a redes sociales y canales de streaming.</p>
-        </header>
+function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
 
-        <main class="links-section">
-            <a href="https://www.twitch.tv/icegaming" target="_blank" class="link-button twitch">Twitch</a>
-            <a href="https://www.youtube.com/icegaming" target="_blank" class="link-button youtube">YouTube</a>
-            <a href="https://kick.com/icegaming" target="_blank" class="link-button kick">Kick</a>
-            <a href="https://www.instagram.com/icegaming" target="_blank" class="link-button instagram">Instagram</a>
-            <a href="https://www.tiktok.com/@icegaming" target="_blank" class="link-button tiktok">TikTok</a>
-            <a href="https://discord.gg/icegaming" target="_blank" class="link-button discord">Discord</a>
-        </main>
+    const size = Math.random() * 5 + 2;
+    const startX = Math.random() * window.innerWidth;
+    const duration = Math.random() * 5 + 5;
+    const delay = Math.random() * 5;
+    const opacity = Math.random() * 0.5 + 0.3;
 
-        <footer>
-            <p>© 2025 ICEGAMING. Todos los derechos reservados.</p>
-        </footer>
-    </div>
+    snowflake.style.width = `${size}px`;
+    snowflake.style.height = `${size}px`;
+    snowflake.style.left = `${startX}px`;
+    snowflake.style.opacity = opacity;
 
-    <script src="js/script.js"></script>
-</body>
-</html>
+    // Movimiento vertical + oscilación horizontal tipo viento
+    snowflake.style.animation = `
+        falling ${duration}s linear ${delay}s forwards,
+        drift ${duration}s ease-in-out ${delay}s infinite alternate
+    `;
+
+    snowflakesContainer.appendChild(snowflake);
+
+    setTimeout(() => snowflake.remove(), (duration + delay) * 1000);
+}
+
+setInterval(createSnowflake, 200);
