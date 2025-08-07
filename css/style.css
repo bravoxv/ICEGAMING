@@ -1,51 +1,28 @@
 /* ======================== */
-/* BASE */
+/* COPOS DE NIEVE REVISADO */
 /* ======================== */
-
-* {
-    box-sizing: border-box;
-    transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-image: url('../assets/snowy-forest-background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #333333;
-    overflow: hidden;
-}
-
-/* ======================== */
-/* ANIMACIÓN DE COPOS DE NIEVE */
-/* ======================== */
-
-.snowflakes-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -2;
-}
 
 .snowflake {
     position: absolute;
-    background-color: white;
-    border-radius: 50%;
+    top: -10px;
+    will-change: transform, opacity;
+    pointer-events: none;
     opacity: 0.7;
-    will-change: transform, opacity; /* Sugerencia al navegador para optimizar */
+    animation: fall 10s linear forwards;
+    z-index: -1;
 }
 
+/* Este es el nuevo contenedor interno que permite aplicar la deriva (drift) sin conflicto */
+.snowflake-inner {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 50%;
+    animation: drift 5s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+/* Animación de caída vertical */
 @keyframes fall {
     from {
         transform: translateY(-10vh);
@@ -55,6 +32,7 @@ body {
     }
 }
 
+/* Animación de oscilación lateral */
 @keyframes drift {
     from {
         transform: translateX(0);
@@ -63,126 +41,3 @@ body {
         transform: translateX(50px);
     }
 }
-
-/* ... (el resto de tu código CSS se mantiene igual) ... */
-/* ======================== */
-/* CONTENEDOR PRINCIPAL */
-/* ======================== */
-
-.container {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-/* ... (resto del código CSS sin cambios) ... */
-.links-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.link-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    border: 1px solid transparent;
-    overflow: hidden;
-    z-index: 3;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-}
-
-.link-button.twitch { background-color: #6441a5; color: #ffffff; }
-.link-button.youtube { background-color: #ff0000; color: #ffffff; }
-.link-button.kick { background-color: #50e417; color: #000000; }
-.link-button.instagram {
-    background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    color: #ffffff;
-}
-.link-button.tiktok { background-color: #000000; color: #ffffff; }
-.link-button.discord { background-color: #5865f2; color: #ffffff; }
-
-.link-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/ice-texture.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    z-index: -1;
-}
-
-.link-button:hover::after {
-    opacity: 1;
-}
-
-.link-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 150%;
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.1) 60%, transparent 80%);
-    opacity: 0;
-    z-index: 0;
-    filter: blur(10px);
-    pointer-events: none;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.link-button:hover::before {
-    opacity: 1;
-    animation: vapor-loop 2s ease-in-out infinite;
-}
-
-@keyframes vapor-loop {
-    0%, 100% {
-        transform: translateY(100%) scaleY(0.6);
-        opacity: 0.6;
-    }
-    50% {
-        transform: translateY(0%) scaleY(1.2);
-        opacity: 0.8;
-    }
-}
-
-.link-button:hover {
-    background-color: transparent;
-    color: #e0f2f7;
-    transform: scale(0.98);
-}
-
-
-footer {
-    font-size: 0.8em;
-    color: #777;
-    margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2em;
-    }
-    .link-button {
-        padding: 12px;
-    }
-}
-
