@@ -1,0 +1,144 @@
+/* ======================== */
+/* ESTILOS BASE */
+/* ======================== */
+
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #add8e6; /* Fondo celeste */
+    color: #333333; /* Texto oscuro */
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* ======================== */
+/* HEADER */
+/* ======================== */
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 10px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #0077b6; /* Azul más oscuro para el texto del título */
+}
+
+header p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* ======================== */
+/* BOTONES Y ENLACES (LINKS) */
+/* ======================== */
+
+.links-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.link-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 1px solid transparent;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000000; /* Letras negras por defecto */
+    border-color: #add8e6; /* Borde celeste */
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.link-button:hover {
+    /* Animación de "congelación" */
+    transform: scale(0.98);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-image: url('../assets/ice-texture.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #e0f2f7; /* Texto blanco helado */
+    border-color: #b3e5fc; /* Borde azul claro helado */
+    position: relative;
+    overflow: hidden;
+}
+
+.link-button:hover::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    animation: vapor 0.5s ease-out forwards;
+}
+
+@keyframes vapor {
+    0% {
+        opacity: 0.6;
+        transform: translateX(-50%) translateY(0) scale(0.8) rotate(-45deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px) scale(1.2) rotate(-45deg);
+    }
+}
+
+/* El efecto hover para estos botones sociales se aplica directamente a sus colores */
+.link-button.twitch:hover { background: #502e9a; }
+.link-button.youtube:hover { background: #cc0000; }
+.link-button.kick:hover { background: #3cba0f; }
+.link-button.instagram:hover { background: linear-gradient(45deg, #d87d2a, #cc582d, #c41e3a, #b31d5b, #a21577); }
+.link-button.tiktok:hover { background: #111; }
+.link-button.discord:hover { background: #4451ca; }
+
+/* ======================== */
+/* FOOTER */
+/* ======================== */
+
+footer {
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* ======================== */
+/* RESPONSIVE DESIGN (MÓVILES) */
+/* ======================== */
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+    .link-button {
+        padding: 12px;
+    }
+}
