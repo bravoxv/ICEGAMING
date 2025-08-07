@@ -17,11 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
         snowflake.style.left = `${startX}vw`;
         snowflake.style.opacity = opacity;
         
-        // Aplica las animaciones de forma correcta y simultánea
-        snowflake.style.animation = `
-            fall ${duration}s linear ${delay}s 1 forwards,
-            drift ${driftDuration}s ease-in-out ${delay}s infinite alternate
-        `;
+        // Aplica las animaciones de forma individual para evitar conflictos
+        snowflake.style.animationName = 'fall, drift';
+        snowflake.style.animationDuration = `${duration}s, ${driftDuration}s`;
+        snowflake.style.animationTimingFunction = 'linear, ease-in-out';
+        snowflake.style.animationDelay = `${delay}s, ${delay}s`;
+        snowflake.style.animationIterationCount = '1, infinite';
+        snowflake.style.animationDirection = 'normal, alternate';
+        snowflake.style.animationFillMode = 'forwards, none';
 
         snowflakesContainer.appendChild(snowflake);
 
