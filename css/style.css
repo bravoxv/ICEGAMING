@@ -34,7 +34,7 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -2; /* Aseguramos que quede detrás del contenedor principal */
+    z-index: -2;
 }
 
 /* Generamos los copos de nieve usando box-shadow */
@@ -47,35 +47,18 @@ body {
     background: transparent;
     border-radius: 50%;
     box-shadow: 
-        /* Copos de nieve generados aleatoriamente */
-        0px 50vh 3px #fff,
-        15vw 10vh 2px #fff,
-        25vw 20vh 4px #fff,
-        35vw 30vh 2px #fff,
-        45vw 40vh 3px #fff,
-        55vw 50vh 2px #fff,
-        65vw 60vh 4px #fff,
-        75vw 70vh 3px #fff,
-        85vw 80vh 2px #fff,
-        95vw 90vh 4px #fff,
-        -10vw 25vh 3px #fff,
-        -20vw 55vh 2px #fff,
-        -30vw 85vh 4px #fff,
-        -40vw 15vh 2px #fff,
-        -50vw 45vh 3px #fff,
-        -60vw 75vh 2px #fff,
-        -70vw 5vh 4px #fff,
-        -80vw 35vh 3px #fff;
+        0px 50vh 3px #fff, 15vw 10vh 2px #fff, 25vw 20vh 4px #fff,
+        35vw 30vh 2px #fff, 45vw 40vh 3px #fff, 55vw 50vh 2px #fff,
+        65vw 60vh 4px #fff, 75vw 70vh 3px #fff, 85vw 80vh 2px #fff,
+        95vw 90vh 4px #fff, -10vw 25vh 3px #fff, -20vw 55vh 2px #fff,
+        -30vw 85vh 4px #fff, -40vw 15vh 2px #fff, -50vw 45vh 3px #fff,
+        -60vw 75vh 2px #fff, -70vw 5vh 4px #fff, -80vw 35vh 3px #fff;
     animation: falling 15s linear infinite;
 }
 
 @keyframes falling {
-    0% {
-        transform: translateY(-100vh);
-    }
-    100% {
-        transform: translateY(100vh);
-    }
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
 }
 
 .container {
@@ -88,7 +71,7 @@ body {
     border-radius: 15px;
     backdrop-filter: blur(5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1; /* Aseguramos que el contenido principal esté por encima */
+    z-index: 1;
 }
 
 /* ======================== */
@@ -135,7 +118,7 @@ header p {
     border: 1px solid transparent;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    z-index: 3; /* El texto y el contenido del botón siempre estarán arriba */
+    z-index: 3;
 }
 
 /* Estilos de los botones para las redes sociales */
@@ -159,7 +142,7 @@ header p {
     background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    z-index: -1; /* Posicionamos detrás del texto del botón */
+    z-index: -1;
 }
 
 .link-button:hover::after {
@@ -174,20 +157,20 @@ header p {
 .link-button.tiktok:hover,
 .link-button.discord:hover {
     background-color: transparent;
-    color: #e0f2f7; /* Cambiamos el color del texto para que combine con el hielo */
+    color: #e0f2f7;
 }
 
 /* Pseudo-elemento para la animación del vapor */
 .link-button::before {
     content: '';
     position: absolute;
-    bottom: -100%; /* Inicia muy abajo */
+    bottom: -100%;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%); /* Gradiente de vapor */
+    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
     opacity: 0;
-    z-index: -1; /* Posicionamos detrás del texto del botón */
+    z-index: -1;
     transition: none;
     transform: scale(0.1);
 }
