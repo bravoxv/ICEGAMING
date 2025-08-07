@@ -1,39 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const snowflakesContainer = document.querySelector(".snowflakes-container");
+    // 1. Crea el elemento del cursor de vapor
+    const vaporCursor = document.createElement('div');
+    vaporCursor.classList.add('vapor-cursor');
+    document.body.appendChild(vaporCursor);
 
-    const createSnowflake = () => {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
+    // 2. Selecciona todos los botones
+    const linkButtons = document.querySelectorAll('.link-button');
 
-        const size = Math.random() * 5 + 2; // Tamaño entre 2px y 7px
-        const startX = Math.random() * 100; // Posición de inicio horizontal aleatoria
-        const duration = Math.random() * 10 + 5; // Duración de la caída entre 5s y 15s
-        const driftDuration = Math.random() * 5 + 5; // Duración de la oscilación horizontal
-        const delay = Math.random() * 5; // Retraso de la animación
-        const opacity = Math.random() * 0.5 + 0.5; // Opacidad entre 0.5 y 1.0
+    // 3. Añade los eventos a cada botón
+    linkButtons.forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+            // Actualiza la posición del vapor para que siga al ratón
+            const x = e.clientX;
+            const y = e.clientY;
+            vaporCursor.style.left = `${x}px`;
+            vaporCursor.style.top = `${y}px`;
+            vaporCursor.style.opacity = '1';
+        });
 
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${startX}vw`;
-        snowflake.style.opacity = opacity;
-        
-        // Aplica las animaciones de forma individual para evitar conflictos
-        snowflake.style.animationName = 'fall, drift';
-        snowflake.style.animationDuration = `${duration}s, ${driftDuration}s`;
-        snowflake.style.animationTimingFunction = 'linear, ease-in-out';
-        snowflake.style.animationDelay = `${delay}s, ${delay}s`;
-        snowflake.style.animationIterationCount = '1, infinite';
-        snowflake.style.animationDirection = 'normal, alternate';
-        snowflake.style.animationFillMode = 'forwards, none';
-
-        snowflakesContainer.appendChild(snowflake);
-
-        // Elimina el copo de nieve al terminar la animación de "caída"
-        setTimeout(() => {
-            snowflake.remove();
-        }, (duration + delay) * 1000);
-    };
-
-    // Generar un copo de nieve cada 200ms
-    setInterval(createSnowflake, 200);
+        button.addEventListener('mouseleave', () => {
+            // Oculta el vapor cuando el ratón sale del botón
+            vaporCursor.style.opacity = '0';
+        });
+    });
 });
