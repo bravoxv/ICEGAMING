@@ -34,25 +34,47 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -1;
+    z-index: -2; /* Aseguramos que quede detrás del contenedor principal */
 }
 
+/* Generamos los copos de nieve usando box-shadow */
 .snowflakes::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(white 1px, transparent 0);
-    background-size: 25px 25px;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 
+        /* Copos de nieve generados aleatoriamente */
+        0px 50vh 3px #fff,
+        15vw 10vh 2px #fff,
+        25vw 20vh 4px #fff,
+        35vw 30vh 2px #fff,
+        45vw 40vh 3px #fff,
+        55vw 50vh 2px #fff,
+        65vw 60vh 4px #fff,
+        75vw 70vh 3px #fff,
+        85vw 80vh 2px #fff,
+        95vw 90vh 4px #fff,
+        -10vw 25vh 3px #fff,
+        -20vw 55vh 2px #fff,
+        -30vw 85vh 4px #fff,
+        -40vw 15vh 2px #fff,
+        -50vw 45vh 3px #fff,
+        -60vw 75vh 2px #fff,
+        -70vw 5vh 4px #fff,
+        -80vw 35vh 3px #fff;
     animation: falling 15s linear infinite;
 }
 
 @keyframes falling {
     0% {
-        transform: translateY(-100%);
+        transform: translateY(-100vh);
     }
     100% {
-        transform: translateY(100%);
+        transform: translateY(100vh);
     }
 }
 
@@ -66,6 +88,7 @@ body {
     border-radius: 15px;
     backdrop-filter: blur(5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Aseguramos que el contenido principal esté por encima */
 }
 
 /* ======================== */
@@ -112,6 +135,7 @@ header p {
     border: 1px solid transparent;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    z-index: 3; /* El texto y el contenido del botón siempre estarán arriba */
 }
 
 /* Estilos de los botones para las redes sociales */
@@ -135,7 +159,7 @@ header p {
     background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    z-index: 1;
+    z-index: -1; /* Posicionamos detrás del texto del botón */
 }
 
 .link-button:hover::after {
@@ -150,41 +174,40 @@ header p {
 .link-button.tiktok:hover,
 .link-button.discord:hover {
     background-color: transparent;
+    color: #e0f2f7; /* Cambiamos el color del texto para que combine con el hielo */
 }
 
 /* Pseudo-elemento para la animación del vapor */
 .link-button::before {
     content: '';
     position: absolute;
-    bottom: 0; /* Inicia desde el borde inferior */
+    bottom: -100%; /* Inicia muy abajo */
     left: 0;
-    width: 100%; /* Cubre todo el ancho */
-    height: 100%; /* Cubre todo el alto */
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%); /* Gradiente de vapor */
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%); /* Gradiente de vapor */
     opacity: 0;
-    z-index: 2;
+    z-index: -1; /* Posicionamos detrás del texto del botón */
     transition: none;
-    transform: scale(0);
+    transform: scale(0.1);
 }
 
 .link-button:hover::before {
-    animation: vapor-spread 2s ease-out forwards;
+    animation: vapor-flow 2s ease-out forwards;
 }
 
-@keyframes vapor-spread {
+@keyframes vapor-flow {
     0% {
-        opacity: 0.8;
+        opacity: 0.6;
+        bottom: 0;
         transform: scale(0.1);
     }
     100% {
         opacity: 0;
-        transform: scale(1.2);
+        bottom: 100%;
+        transform: scale(1.5);
     }
 }
-
-/* Resto del código... */
-/* ... (el resto del CSS no necesita cambios, solo asegúrate de que el código de abajo esté presente) ... */
-
 
 /* ======================== */
 /* FOOTER */
