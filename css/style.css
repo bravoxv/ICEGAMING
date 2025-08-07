@@ -43,7 +43,6 @@ body {
     background-color: white;
     border-radius: 50%;
     opacity: 0.7;
-    animation-name: fall;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
@@ -51,6 +50,15 @@ body {
 @keyframes fall {
     to {
         transform: translateY(105vh);
+    }
+}
+
+@keyframes drift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(50px);
     }
 }
 
