@@ -1,3 +1,12 @@
+/* ======================== */
+/* ESTILOS BASE */
+/* ======================== */
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -6,11 +15,11 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('../assets/snowy-forest-background.jpg'); /* Ruta a tu imagen de fondo */
+    background-image: url('../assets/snowy-forest-background.jpg'); /* Fondo de bosque nevado */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Esto asegura que la imagen no se mueva al hacer scroll */
+    background-attachment: fixed;
     color: #333333; /* Texto oscuro */
 }
 
@@ -20,8 +29,147 @@ body {
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-    background: rgba(255, 255, 255, 0.7); /* Un fondo blanco semitransparente para que el texto sea legible */
+    background: rgba(255, 255, 255, 0.7); /* Fondo semitransparente para el contenedor */
     border-radius: 15px;
-    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo del contenedor para que sea más legible */
+    backdrop-filter: blur(5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ======================== */
+/* HEADER */
+/* ======================== */
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 10px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    color: #0077b6;
+}
+
+header p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* ======================== */
+/* BOTONES Y ENLACES (LINKS) */
+/* ======================== */
+
+.links-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.link-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 1px solid transparent;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+/* Estilos de los botones para las redes sociales */
+.link-button.twitch { background-color: #6441a5; color: #ffffff; }
+.link-button.youtube { background-color: #ff0000; color: #ffffff; }
+.link-button.kick { background-color: #50e417; color: #000000; }
+.link-button.instagram { background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #ffffff; }
+.link-button.tiktok { background-color: #000000; color: #ffffff; }
+.link-button.discord { background-color: #5865f2; color: #ffffff; }
+
+/* Efecto de generación gradual de la textura de hielo */
+.link-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/ice-texture.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.8s ease-in-out; /* Transición para la aparición gradual */
+    z-index: 1; /* Aseguramos que esté por encima del color base */
+}
+
+.link-button:hover::after {
+    opacity: 1; /* Se vuelve completamente visible al hacer hover */
+}
+
+.link-button:hover {
+    transform: scale(0.98);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: #b3e5fc;
+    color: #e0f2f7; /* Cambiamos el color del texto para que combine con el hielo */
+}
+
+/* Pseudo-elemento para la animación del vapor */
+.link-button::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0.1) scaleY(0.5);
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 2; /* Para que esté por encima del hielo y el texto */
+    transition: none;
+}
+
+.link-button:hover::before {
+    animation: vapor-spread 1.5s ease-out forwards;
+}
+
+@keyframes vapor-spread {
+    0% {
+        opacity: 0.6;
+        transform: translateX(-50%) translateY(0) scaleX(0.2) scaleY(0.4);
+    }
+    50% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(-15px) scaleX(1) scaleY(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px) scaleX(1.5) scaleY(1.2);
+    }
+}
+
+/* ======================== */
+/* FOOTER */
+/* ======================== */
+
+footer {
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* ======================== */
+/* RESPONSIVE DESIGN (MÓVILES) */
+/* ======================== */
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+    .link-button {
+        padding: 12px;
+    }
 }
