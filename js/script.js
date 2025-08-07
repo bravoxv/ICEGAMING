@@ -1,13 +1,12 @@
-<script>
 const snowflakesContainer = document.getElementById("snowflakes-container");
 
 function createSnowflake() {
     const snowflake = document.createElement("div");
     snowflake.classList.add("snowflake");
 
-    const size = Math.random() * 5 + 2;
+    const size = Math.random() * 5 + 2; // entre 2 y 7 px
     const startX = Math.random() * window.innerWidth;
-    const duration = Math.random() * 5 + 5;
+    const duration = Math.random() * 5 + 5; // entre 5 y 10 s
     const opacity = Math.random() * 0.5 + 0.3;
 
     snowflake.style.width = `${size}px`;
@@ -22,4 +21,3 @@ function createSnowflake() {
 }
 
 setInterval(createSnowflake, 200);
-</script>
