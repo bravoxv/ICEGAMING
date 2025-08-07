@@ -3,6 +3,7 @@
 /* ======================== */
 
 * {
+    box-sizing: border-box;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -71,11 +72,12 @@ header p {
     background-color: #ffffff; /* Fondo blanco */
     color: #000000; /* Letras negras por defecto */
     border-color: #add8e6; /* Borde celeste */
+    overflow: hidden; /* Importante para la animación de vapor */
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
+/* Animación y estilo de hielo al pasar el mouse */
 .link-button:hover {
-    /* Animación de "congelación" */
     transform: scale(0.98);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     background-image: url('../assets/ice-texture.jpg');
@@ -83,42 +85,59 @@ header p {
     background-repeat: no-repeat;
     color: #e0f2f7; /* Texto blanco helado */
     border-color: #b3e5fc; /* Borde azul claro helado */
-    position: relative;
-    overflow: hidden;
+}
+
+/* Pseudo-elemento para la animación del vapor */
+.link-button::before {
+    content: '';
+    position: absolute;
+    bottom: -20px; /* Inicia desde abajo */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.5); /* Color y opacidad del vapor */
+    border-radius: 50%;
+    opacity: 0;
+    z-index: -1; /* Para que quede detrás del texto del botón */
+    transition: none; /* Desactivar la transición para que la animación sea instantánea al hover */
 }
 
 .link-button:hover::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-45deg);
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    opacity: 0;
-    animation: vapor 0.5s ease-out forwards;
+    animation: vapor-animation 0.8s ease-out forwards;
 }
 
-@keyframes vapor {
+@keyframes vapor-animation {
     0% {
-        opacity: 0.6;
-        transform: translateX(-50%) translateY(0) scale(0.8) rotate(-45deg);
+        opacity: 0.5;
+        transform: translateX(-50%) translateY(0) scale(0.8);
     }
     100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-30px) scale(1.2) rotate(-45deg);
+        transform: translateX(-50%) translateY(-50px) scale(1.5);
     }
 }
 
-/* El efecto hover para estos botones sociales se aplica directamente a sus colores */
-.link-button.twitch:hover { background: #502e9a; }
-.link-button.youtube:hover { background: #cc0000; }
-.link-button.kick:hover { background: #3cba0f; }
-.link-button.instagram:hover { background: linear-gradient(45deg, #d87d2a, #cc582d, #c41e3a, #b31d5b, #a21577); }
-.link-button.tiktok:hover { background: #111; }
-.link-button.discord:hover { background: #4451ca; }
+/* Estilos de los botones para las redes sociales */
+.link-button.twitch { background-color: #6441a5; color: #ffffff; }
+.link-button.youtube { background-color: #ff0000; color: #ffffff; }
+.link-button.kick { background-color: #50e417; color: #000000; }
+.link-button.instagram { background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #ffffff; }
+.link-button.tiktok { background-color: #000000; color: #ffffff; }
+.link-button.discord { background-color: #5865f2; color: #ffffff; }
+
+/* El efecto hover para estos botones sociales ahora no tiene un color de fondo definido,
+   lo que permite que la imagen de la textura de hielo se muestre. */
+.link-button.twitch:hover,
+.link-button.youtube:hover,
+.link-button.kick:hover,
+.link-button.instagram:hover,
+.link-button.tiktok:hover,
+.link-button.discord:hover {
+    background-image: url('../assets/ice-texture.jpg');
+    color: #000000; /* o cualquier color que combine con tu textura */
+}
+
 
 /* ======================== */
 /* FOOTER */
