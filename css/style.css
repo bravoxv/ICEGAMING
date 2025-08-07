@@ -21,10 +21,11 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: #333333;
+    overflow: hidden;
 }
 
 /* ======================== */
-/* ANIMACIÓN DE COPOS DE NIEVE */
+/* COPOS DE NIEVE */
 /* ======================== */
 
 .snowflakes {
@@ -40,45 +41,30 @@ body {
 
 .snowflake {
     position: absolute;
-    background-color: #fff;
+    top: -10px;
+    background-color: white;
     border-radius: 50%;
-    opacity: 0.7;
-    animation: fall linear infinite;
-}
-
-.snowflakes::before {
-    content: '';
-    position: absolute;
-    top: -50vh;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    opacity: 0.8;
     pointer-events: none;
-    background-image: 
-        radial-gradient(4px 4px rgba(255,255,255,0.8), transparent),
-        radial-gradient(6px 6px rgba(255,255,255,0.6), transparent),
-        radial-gradient(3px 3px rgba(255,255,255,0.7), transparent),
-        radial-gradient(5px 5px rgba(255,255,255,0.5), transparent),
-        radial-gradient(2px 2px rgba(255,255,255,0.9), transparent),
-        radial-gradient(8px 8px rgba(255,255,255,0.4), transparent);
-    background-size: 50px 50px;
-    animation: falling-varied 6s linear infinite;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
 }
 
-@keyframes falling-varied {
-    0% {
-        transform: translateY(-100vh);
-    }
-    100% {
-        transform: translateY(200vh);
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
     }
 }
+
+/* ======================== */
+/* CONTENEDOR PRINCIPAL */
+/* ======================== */
 
 .container {
     width: 100%;
     max-width: 600px;
     padding: 20px;
-    box-sizing: border-box;
     text-align: center;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 15px;
@@ -109,7 +95,7 @@ header p {
 }
 
 /* ======================== */
-/* BOTONES Y ENLACES (LINKS) */
+/* BOTONES Y ENLACES */
 /* ======================== */
 
 .links-section {
@@ -130,19 +116,22 @@ header p {
     position: relative;
     border: 1px solid transparent;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     z-index: 3;
 }
 
-/* Estilos de los botones para las redes sociales */
+/* COLORES BOTONES */
+
 .link-button.twitch { background-color: #6441a5; color: #ffffff; }
 .link-button.youtube { background-color: #ff0000; color: #ffffff; }
 .link-button.kick { background-color: #50e417; color: #000000; }
-.link-button.instagram { background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #ffffff; }
+.link-button.instagram {
+    background-image: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: #ffffff;
+}
 .link-button.tiktok { background-color: #000000; color: #ffffff; }
 .link-button.discord { background-color: #5865f2; color: #ffffff; }
 
-/* Efecto de generación gradual de la textura de hielo */
+/* TEXTURA DE HIELO AL HOVER */
 .link-button::after {
     content: '';
     position: absolute;
@@ -162,18 +151,12 @@ header p {
     opacity: 1;
 }
 
-/* Para que la transición de opacidad funcione correctamente */
-.link-button.twitch:hover,
-.link-button.youtube:hover,
-.link-button.kick:hover,
-.link-button.instagram:hover,
-.link-button.tiktok:hover,
-.link-button.discord:hover {
-    background-color: transparent;
-    color: #e0f2f7;
+.link-button:hover {
+    background-color: transparent !important;
+    color: #e0f2f7 !important;
 }
 
-/* Pseudo-elemento para la animación del vapor */
+/* VAPOR VOLUMÉTRICO MIENTRAS HOVER */
 .link-button::before {
     content: '';
     position: absolute;
@@ -181,26 +164,31 @@ header p {
     left: 0;
     width: 100%;
     height: 150%;
-    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.1) 60%, transparent 80%);
     opacity: 0;
     z-index: 2;
-    transition: none;
-    transform: translateY(100%) scaleY(0.5);
-    filter: blur(5px);
+    filter: blur(10px);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .link-button:hover::before {
-    animation: vapor-flow 1.5s ease-out forwards;
+    opacity: 1;
+    animation: vapor-loop 2s ease-in-out infinite;
 }
 
-@keyframes vapor-flow {
+@keyframes vapor-loop {
     0% {
-        opacity: 0.7;
-        transform: translateY(0) scaleY(1);
+        transform: translateY(100%) scaleY(0.6);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-20%) scaleY(1.2);
+        opacity: 0.8;
     }
     100% {
-        opacity: 0;
-        transform: translateY(-50%) scaleY(1.5);
+        transform: translateY(100%) scaleY(0.6);
+        opacity: 0.6;
     }
 }
 
@@ -215,7 +203,7 @@ footer {
 }
 
 /* ======================== */
-/* RESPONSIVE DESIGN (MÓVILES) */
+/* RESPONSIVE */
 /* ======================== */
 
 @media (max-width: 600px) {
