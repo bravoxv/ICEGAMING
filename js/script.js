@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ===========================
-       2. COPOS DE NIEVE ALEATORIOS CON VIENTO
+       2. COPOS DE NIEVE ALEATORIOS CON VIENTO CAMBIANTE
     ============================ */
     const snowContainer = document.createElement("div");
     snowContainer.classList.add("snowflakes-container");
@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         snowflake.style.width = `${size}px`;
         snowflake.style.height = `${size}px`;
 
-        // Posición horizontal inicial aleatoria
+        // Posición inicial aleatoria
         snowflake.style.left = `${Math.random() * 100}vw`;
 
-        // Duración de caída y deriva aleatorias
+        // Duración aleatoria de caída y deriva
         const fallDuration = Math.random() * 5 + 5;
         const driftDuration = Math.random() * 4 + 3;
         snowflake.style.animationDuration = `${fallDuration}s, ${driftDuration}s`;
