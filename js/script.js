@@ -1,26 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Crea el elemento del cursor de vapor
+    /* ===========================
+       1. EFECTO DE VAPOR EN EL CURSOR
+    ============================ */
     const vaporCursor = document.createElement('div');
     vaporCursor.classList.add('vapor-cursor');
     document.body.appendChild(vaporCursor);
 
-    // 2. Selecciona todos los botones
     const linkButtons = document.querySelectorAll('.link-button');
 
-    // 3. Añade los eventos a cada botón
     linkButtons.forEach(button => {
         button.addEventListener('mousemove', (e) => {
-            // Actualiza la posición del vapor para que siga al ratón
-            const x = e.clientX;
-            const y = e.clientY;
-            vaporCursor.style.left = `${x}px`;
-            vaporCursor.style.top = `${y}px`;
+            vaporCursor.style.left = `${e.clientX}px`;
+            vaporCursor.style.top = `${e.clientY}px`;
             vaporCursor.style.opacity = '1';
         });
 
         button.addEventListener('mouseleave', () => {
-            // Oculta el vapor cuando el ratón sale del botón
             vaporCursor.style.opacity = '0';
         });
     });
+
+    /* ===========================
+       2. COPOS DE NIEVE ALEATORIOS CON VIENTO
+    ============================ */
+    const snowContainer = document.createElement("div");
+    snowContainer.classList.add("snowflakes-container");
+    document.body.appendChild(snowContainer);
+
+    const numSnowflakes = 50; // cantidad de copos
+    for (let i = 0; i < numSnowflakes; i++) {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+
+        // Tamaño aleatorio
+        const size = Math.random() * 6 + 4;
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+
+        // Posición horizontal inicial aleatoria
+        snowflake.style.left = `${Math.random() * 100}vw`;
+
+        // Duración de caída y deriva aleatorias
+        const fallDuration = Math.random() * 5 + 5;
+        const driftDuration = Math.random() * 4 + 3;
+        snowflake.style.animationDuration = `${fallDuration}s, ${driftDuration}s`;
+
+        // Retraso aleatorio
+        snowflake.style.animationDelay = `${Math.random() * 10}s, ${Math.random() * 5}s`;
+
+        snowContainer.appendChild(snowflake);
+    }
 });
