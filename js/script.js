@@ -1,53 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
-    /* ===========================
-       1. EFECTO DE VAPOR EN EL CURSOR
-    ============================ */
-    const vaporCursor = document.createElement('div');
-    vaporCursor.classList.add('vapor-cursor');
-    document.body.appendChild(vaporCursor);
 
-    const linkButtons = document.querySelectorAll('.link-button');
-
-    linkButtons.forEach(button => {
-        button.addEventListener('mousemove', (e) => {
-            vaporCursor.style.left = `${e.clientX}px`;
-            vaporCursor.style.top = `${e.clientY}px`;
-            vaporCursor.style.opacity = '1';
-        });
-
-        button.addEventListener('mouseleave', () => {
-            vaporCursor.style.opacity = '0';
-        });
-    });
-
-    /* ===========================
-       2. COPOS DE NIEVE ALEATORIOS CON VIENTO CAMBIANTE
-    ============================ */
-    const snowContainer = document.createElement("div");
+    /* =============== */
+    /* COPOS DE NIEVE */
+    /* =============== */
+    const snowContainer = document.querySelector('.snowflakes-container') || document.createElement("div");
     snowContainer.classList.add("snowflakes-container");
-    document.body.appendChild(snowContainer);
+    if (!document.body.contains(snowContainer)) document.body.appendChild(snowContainer);
 
-    const numSnowflakes = 50; // cantidad de copos
+    snowContainer.innerHTML = ''; // Limpiar si ya hay copos
+
+    const numSnowflakes = 70;
     for (let i = 0; i < numSnowflakes; i++) {
         const snowflake = document.createElement("div");
         snowflake.classList.add("snowflake");
 
-        // Tamaño aleatorio
+        // Tamaño aleatorio entre 4 y 10 px
         const size = Math.random() * 6 + 4;
         snowflake.style.width = `${size}px`;
         snowflake.style.height = `${size}px`;
 
-        // Posición inicial aleatoria
+        // Posición horizontal aleatoria
         snowflake.style.left = `${Math.random() * 100}vw`;
 
-        // Duración aleatoria de caída y deriva
+        // Duración aleatoria de la animación (caída y deriva)
         const fallDuration = Math.random() * 5 + 5;
         const driftDuration = Math.random() * 4 + 3;
         snowflake.style.animationDuration = `${fallDuration}s, ${driftDuration}s`;
 
-        // Retraso aleatorio
+        // Retraso aleatorio para no caer todos al mismo tiempo
         snowflake.style.animationDelay = `${Math.random() * 10}s, ${Math.random() * 5}s`;
 
         snowContainer.appendChild(snowflake);
     }
+
+    /* =============== */
+    /* EFECTO VAPOR EN BOTONES */
+    /* =============== */
+    const linkButtons = document.querySelectorAll('.link-button');
+
+    linkButtons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            let count = 0;
+            const vaporInterval = setInterval(() => {
+                const vapor = document.createElement('div');
+                vapor.classList.add('vapor');
+
+                const rect = button.getBoundingClientRect();
+                // Posiciona vapor encima y centrado respecto al botón
+                vapor.style.left = `${rect.left + rect.width / 2 - 30 + window.scrollX}px`;
+                vapor.style.top = `${rect.top - 20 + window.scrollY}px`;
+
+                document.body.appendChild(vapor);
+
+                // Elimina el vapor luego de 1.5 segundos (duración animación)
+                setTimeout(() => vapor.remove(), 1500);
+
+                count++;
+                if (count >= 4) clearInterval(vaporInterval);
+            }, 300);
+        });
+    });
+
 });
