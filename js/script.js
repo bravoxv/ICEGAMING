@@ -1,37 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =============== */
-    /* COPOS DE NIEVE */
+    /* EFECTO DE NIEVE */
     /* =============== */
-    const snowContainer = document.querySelector('.snowflakes-container') || document.createElement("div");
-    snowContainer.classList.add("snowflakes-container");
-    if (!document.body.contains(snowContainer)) document.body.appendChild(snowContainer);
+    const createSnowflakes = (container, count) => {
+        // Limpiar el contenedor si ya tiene copos
+        container.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const snowflake = document.createElement("div");
+            snowflake.classList.add("snowflake");
 
-    snowContainer.innerHTML = ''; // Limpiar si ya hay copos
+            // Tamaño aleatorio entre 4 y 10 px
+            const size = Math.random() * 6 + 4;
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
 
-    const numSnowflakes = 70;
-    for (let i = 0; i < numSnowflakes; i++) {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
+            // Posición horizontal aleatoria
+            snowflake.style.left = `${Math.random() * 100}vw`;
 
-        // Tamaño aleatorio entre 4 y 10 px
-        const size = Math.random() * 6 + 4;
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
+            // Duración aleatoria de la animación (caída y deriva)
+            const fallDuration = Math.random() * 5 + 5;
+            const driftDuration = Math.random() * 4 + 3;
+            snowflake.style.animationDuration = `${fallDuration}s, ${driftDuration}s`;
 
-        // Posición horizontal aleatoria
-        snowflake.style.left = `${Math.random() * 100}vw`;
+            // Retraso aleatorio para no caer todos al mismo tiempo
+            snowflake.style.animationDelay = `${Math.random() * 10}s, ${Math.random() * 5}s`;
 
-        // Duración aleatoria de la animación (caída y deriva)
-        const fallDuration = Math.random() * 5 + 5;
-        const driftDuration = Math.random() * 4 + 3;
-        snowflake.style.animationDuration = `${fallDuration}s, ${driftDuration}s`;
+            container.appendChild(snowflake);
+        }
+    };
 
-        // Retraso aleatorio para no caer todos al mismo tiempo
-        snowflake.style.animationDelay = `${Math.random() * 10}s, ${Math.random() * 5}s`;
+    const snowBack = document.getElementById('snowBack');
+    const snowFront = document.getElementById('snowFront');
+    
+    // Crear la nieve detrás (menos copos)
+    createSnowflakes(snowBack, 40);
+    // Crear la nieve delante (más copos)
+    createSnowflakes(snowFront, 30);
 
-        snowContainer.appendChild(snowflake);
-    }
 
     /* =============== */
     /* EFECTO VAPOR EN BOTONES */
@@ -77,4 +83,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /* =============== */
+    /* LÓGICA COMENTARIOS Y DONACIONES */
+    /* =============== */
+    function setUtterancesTheme(themeName) {
+        const utterancesContainer = document.querySelector('.utterances-container');
+        if (utterancesContainer) {
+            utterancesContainer.innerHTML = '';
+            const script = document.createElement('script');
+            script.src = 'https://utteranc.es/client.js';
+            script.setAttribute('repo', 'bravoxv/mi-pagina'); // Asegúrate de que este sea tu repositorio de GitHub
+            script.setAttribute('issue-term', 'pathname');
+            script.setAttribute('crossorigin', 'anonymous');
+            script.setAttribute('async', 'true');
+            script.setAttribute('theme', themeName);
+            utterancesContainer.appendChild(script);
+        }
+    }
+
+    // El tema por defecto es oscuro
+    setUtterancesTheme('github-dark');
+
+    // Botón comentarios
+    const commentButton = document.getElementById('comment-button');
+    const commentsSection = document.getElementById('comments-section');
+    if (commentButton && commentsSection) {
+        commentButton.addEventListener('click', () => {
+            commentsSection.classList.toggle('show');
+        });
+    }
+
+    // Menú donaciones
+    const donateButton = document.getElementById('donate-button');
+    const donateOptions = document.getElementById('donate-options');
+    const astropayCvu = document.getElementById('astropay-cvu');
+    const copyCvuButton = document.querySelector('.copy-cvu-button');
+    const astropayCopyMessage = document.getElementById('astropay-copy-message');
+
+    if (donateButton && donateOptions) {
+        donateButton.addEventListener('click', (event) => {
+            donateOptions.classList.toggle('show');
+            event.stopPropagation();
+        });
+        document.addEventListener('click', (event) => {
+            if (!donateButton.contains(event.target) && !donateOptions.contains(event.target)) {
+                donateOptions.classList.remove('show');
+            }
+        });
+    }
+
+    if (copyCvuButton) {
+        copyCvuButton.addEventListener('click', () => {
+            // Usamos document.execCommand para mayor compatibilidad
+            try {
+                const cvuText = astropayCvu.textContent;
+                const tempInput = document.createElement('textarea');
+                tempInput.value = cvuText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                astropayCopyMessage.textContent = '¡Copiado!';
+                astropayCopyMessage.style.color = '#28a745';
+                setTimeout(() => astropayCopyMessage.textContent = '', 2000);
+            } catch (err) {
+                astropayCopyMessage.textContent = 'Error al copiar.';
+                astropayCopyMessage.style.color = '#dc3545';
+                setTimeout(() => astropayCopyMessage.textContent = '', 2000);
+            }
+        });
+    }
 });
