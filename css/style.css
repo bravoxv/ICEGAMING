@@ -1,9 +1,32 @@
+/* ==================================== */
+/* VARIABLES CSS - FÁCIL MANTENIMIENTO */
+/* ==================================== */
+:root {
+    /* Paleta de colores */
+    --color-fondo-claro: #ffffff;
+    --color-texto-claro: #333333;
+    --color-texto-botones-oscuro: #e0f2f7;
+    --color-sombra: rgba(0, 0, 0, 0.2);
+
+    /* Efectos de fondo y contenedores */
+    --fondo-blur: blur(5px);
+    --fondo-contenedor: rgba(255, 255, 255, 0.7);
+
+    /* Estilos de botones */
+    --borde-radio: 10px;
+    --sombra-boton: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --sombra-contenedor: 0 8px 16px var(--color-sombra);
+
+    /* Animaciones */
+    --duracion-transicion: 0.3s;
+}
+
 /* ======================== */
-/* BASE */
+/* BASE & TIPOGRAFÍA */
 /* ======================== */
 * {
     box-sizing: border-box;
-    transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    transition: all var(--duracion-transicion) ease;
 }
 
 body {
@@ -19,7 +42,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #333333;
+    color: var(--color-texto-claro);
     overflow: hidden;
 }
 
@@ -34,7 +57,7 @@ body {
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-    z-index: -2; /* detrás de todo */
+    z-index: -2; /* Detrás de todo para no interferir con la UI */
 }
 
 .snowflake {
@@ -42,13 +65,14 @@ body {
     background-color: white;
     border-radius: 50%;
     opacity: 0.8;
+    /* will-change ayuda al navegador a optimizar la animación */
     will-change: transform, opacity;
     animation-name: fall, drift;
     animation-timing-function: linear, ease-in-out;
     animation-iteration-count: infinite, infinite;
 }
 
-/* Caída vertical */
+/* Animación de caída vertical */
 @keyframes fall {
     0% {
         transform: translateY(-10%);
@@ -60,7 +84,7 @@ body {
     }
 }
 
-/* Movimiento lateral con viento */
+/* Animación de movimiento lateral */
 @keyframes drift {
     0% { transform: translateX(0); }
     25% { transform: translateX(20px); }
@@ -80,7 +104,7 @@ body {
     border-radius: 50%;
     filter: blur(4px);
     opacity: 0.7;
-    animation: vaporRise 2s ease-out forwards;
+    animation: vaporRise 1.5s ease-out forwards; /* Ajustado a 1.5s para mayor dinamismo */
     pointer-events: none;
     z-index: 10;
 }
@@ -104,10 +128,10 @@ body {
     max-width: 600px;
     padding: 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--fondo-contenedor);
     border-radius: 15px;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: var(--fondo-blur);
+    box-shadow: var(--sombra-contenedor);
     z-index: 1;
     position: relative;
 }
@@ -115,8 +139,8 @@ body {
 h1 {
     font-size: 2.5em;
     margin: 10px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    color: #0077b6;
+    text-shadow: 2px 2px 4px var(--color-sombra);
+    color: #0077b6; /* Azul que combina con el tema frío */
 }
 
 p {
@@ -125,7 +149,7 @@ p {
 }
 
 /* ======================== */
-/* BOTONES */
+/* BOTONES DE ENLACE */
 /* ======================== */
 .links-section {
     display: flex;
@@ -140,13 +164,12 @@ p {
     padding: 15px;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: var(--borde-radio);
+    box-shadow: var(--sombra-boton);
     position: relative;
     border: 1px solid transparent;
     overflow: hidden;
     z-index: 3;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 /* Colores de redes */
@@ -157,7 +180,7 @@ p {
 .link-button.tiktok { background-color: #000000; color: #ffffff; }
 .link-button.discord { background-color: #5865f2; color: #ffffff; }
 
-/* Hielo al hover */
+/* Hielo al pasar el ratón */
 .link-button::after {
     content: '';
     position: absolute;
@@ -169,7 +192,7 @@ p {
     background-size: cover;
     background-repeat: no-repeat;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out; /* Transición más rápida */
     z-index: -1;
 }
 
@@ -179,8 +202,9 @@ p {
 
 .link-button:hover {
     background-color: transparent;
-    color: #e0f2f7;
+    color: var(--color-texto-botones-oscuro);
     transform: scale(0.98);
+    border-color: #e0f2f7; /* Borde al pasar el ratón */
 }
 
 /* ======================== */
