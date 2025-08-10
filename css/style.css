@@ -24,7 +24,7 @@ body {
 }
 
 /* ======================== */
-/* COPOS DE NIEVE MEJORADOS */
+/* COPOS DE NIEVE */
 /* ======================== */
 .snowflakes-container {
     position: fixed;
@@ -33,8 +33,15 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -2;
     overflow: hidden;
+}
+
+#snowBack {
+    z-index: -2; /* detrás de todo */
+}
+
+#snowFront {
+    z-index: 5; /* por delante del contenido */
 }
 
 .snowflake {
@@ -60,30 +67,13 @@ body {
     }
 }
 
-/* Movimiento lateral con viento cambiante */
+/* Movimiento lateral con viento */
 @keyframes drift {
     0% { transform: translateX(0); }
     25% { transform: translateX(20px); }
     50% { transform: translateX(-15px); }
     75% { transform: translateX(25px); }
     100% { transform: translateX(0); }
-}
-
-/* ======================== */
-/* EFECTO DE VAPOR EN EL CURSOR */
-/* ======================== */
-.vapor-cursor {
-    position: fixed;
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    filter: blur(15px);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 100;
-    transition: opacity 0.5s ease;
 }
 
 /* ======================== */
@@ -99,13 +89,7 @@ body {
     backdrop-filter: blur(5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
-}
-
-/* ======================== */
-/* HEADER */
-/* ======================== */
-header {
-    margin-bottom: 20px;
+    position: relative;
 }
 
 h1 {
@@ -115,14 +99,13 @@ h1 {
     color: #0077b6;
 }
 
-header p {
+p {
     font-size: 1em;
     color: #555;
-    margin-bottom: 20px;
 }
 
 /* ======================== */
-/* BOTONES DE ENLACE */
+/* BOTONES */
 /* ======================== */
 .links-section {
     display: flex;
@@ -146,7 +129,7 @@ header p {
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
-/* Colores por red */
+/* Colores de redes */
 .link-button.twitch { background-color: #6441a5; color: #ffffff; }
 .link-button.youtube { background-color: #ff0000; color: #ffffff; }
 .link-button.kick { background-color: #50e417; color: #000000; }
@@ -154,7 +137,7 @@ header p {
 .link-button.tiktok { background-color: #000000; color: #ffffff; }
 .link-button.discord { background-color: #5865f2; color: #ffffff; }
 
-/* Hielo al hover (capa posterior) */
+/* Hielo al hover */
 .link-button::after {
     content: '';
     position: absolute;
@@ -174,7 +157,6 @@ header p {
     opacity: 1;
 }
 
-/* Estado hover general del botón */
 .link-button:hover {
     background-color: transparent;
     color: #e0f2f7;
