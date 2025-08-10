@@ -14,10 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
             snowflake.style.height = `${size}px`;
             snowflake.style.left = `${Math.random() * 100}vw`;
 
-            const fallDuration = Math.random() * 5 + 5;
+            // La duración de la animación de caída es más corta para un efecto de caída más rápido
+            const fallDuration = Math.random() * 3 + 2; 
             const driftDuration = Math.random() * 4 + 3;
             snowflake.style.animationDuration = `${fallDuration}s, ${driftDuration}s`;
-            snowflake.style.animationDelay = `${Math.random() * 10}s, ${Math.random() * 5}s`;
+            snowflake.style.animationDelay = `${Math.random() * 5}s, ${Math.random() * 5}s`;
 
             container.appendChild(snowflake);
         }
@@ -69,72 +70,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    /* =============== */
-    /* LÓGICA COMENTARIOS Y DONACIONES */
-    /* =============== */
-    function setUtterancesTheme(themeName) {
-        const utterancesContainer = document.querySelector('.utterances-container');
-        if (utterancesContainer) {
-            utterancesContainer.innerHTML = '';
-            const script = document.createElement('script');
-            script.src = 'https://utteranc.es/client.js';
-            script.setAttribute('repo', 'bravoxv/mi-pagina');
-            script.setAttribute('issue-term', 'pathname');
-            script.setAttribute('crossorigin', 'anonymous');
-            script.setAttribute('async', 'true');
-            script.setAttribute('theme', themeName);
-            utterancesContainer.appendChild(script);
-        }
-    }
-
-    setUtterancesTheme('github-dark');
-
-    const commentButton = document.getElementById('comment-button');
-    const commentsSection = document.getElementById('comments-section');
-    if (commentButton && commentsSection) {
-        commentButton.addEventListener('click', () => {
-            commentsSection.classList.toggle('show');
-        });
-    }
-
-    const donateButton = document.getElementById('donate-button');
-    const donateOptions = document.getElementById('donate-options');
-    const astropayCvu = document.getElementById('astropay-cvu');
-    const copyCvuButton = document.querySelector('.copy-cvu-button');
-    const astropayCopyMessage = document.getElementById('astropay-copy-message');
-
-    if (donateButton && donateOptions) {
-        donateButton.addEventListener('click', (event) => {
-            donateOptions.classList.toggle('show');
-            event.stopPropagation();
-        });
-        document.addEventListener('click', (event) => {
-            if (!donateButton.contains(event.target) && !donateOptions.contains(event.target)) {
-                donateOptions.classList.remove('show');
-            }
-        });
-    }
-
-    if (copyCvuButton) {
-        copyCvuButton.addEventListener('click', () => {
-            try {
-                const cvuText = astropayCvu.textContent;
-                const tempInput = document.createElement('textarea');
-                tempInput.value = cvuText;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                
-                astropayCopyMessage.textContent = '¡Copiado!';
-                astropayCopyMessage.style.color = '#28a745';
-                setTimeout(() => astropayCopyMessage.textContent = '', 2000);
-            } catch (err) {
-                astropayCopyMessage.textContent = 'Error al copiar.';
-                astropayCopyMessage.style.color = '#dc3545';
-                setTimeout(() => astropayCopyMessage.textContent = '', 2000);
-            }
-        });
-    }
 });
