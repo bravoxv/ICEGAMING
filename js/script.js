@@ -39,9 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const linkButtons = document.querySelectorAll('.link-button');
 
     linkButtons.forEach(button => {
+        let vaporInterval = null;
+
         button.addEventListener('mouseenter', () => {
+            // Si ya hay un intervalo en marcha, no creamos otro
+            if (vaporInterval) return;
+
             let count = 0;
-            const vaporInterval = setInterval(() => {
+            vaporInterval = setInterval(() => {
                 const vapor = document.createElement('div');
                 vapor.classList.add('vapor');
 
@@ -56,8 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => vapor.remove(), 1500);
 
                 count++;
-                if (count >= 4) clearInterval(vaporInterval);
+                if (count >= 4) {
+                    clearInterval(vaporInterval);
+                    vaporInterval = null; // Reiniciamos la variable
+                }
             }, 300);
+        });
+
+        // Limpiamos el intervalo si el mouse sale del botón antes de que termine
+        button.addEventListener('mouseleave', () => {
+            if (vaporInterval) {
+                clearInterval(vaporInterval);
+                vaporInterval = null;
+            }
         });
     });
 
