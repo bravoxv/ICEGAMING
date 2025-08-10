@@ -1,5 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // Contenedores de nieve
+    const snowBack = document.createElement('div');
+    snowBack.classList.add('snowflakes-container');
+    snowBack.id = 'snowBack';
+    document.body.appendChild(snowBack);
+
+    const snowFront = document.createElement('div');
+    snowFront.classList.add('snowflakes-container', 'front');
+    snowFront.id = 'snowFront';
+    document.body.appendChild(snowFront);
+
     /* =============== */
     /* EFECTO DE NIEVE */
     /* =============== */
@@ -23,9 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(snowflake);
         }
     };
-
-    const snowBack = document.getElementById('snowBack');
-    const snowFront = document.getElementById('snowFront');
     
     createSnowflakes(snowBack, 40);
     createSnowflakes(snowFront, 30);
