@@ -1,10 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Conéctate conmigo! - ICEGAMING</title>
+    <!-- Enlace a la fuente Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Enlace a los estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Enlace a los iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
 <body>
 
-    <!-- Nieve detrás -->
+    <!-- Contenedor para la nieve que va detrás de todo -->
     <div class="snowflakes-container" id="snowBack"></div>
 
+    <div class="top-bar-buttons">
+        <!-- Botón para mostrar/ocultar comentarios -->
+        <button id="comment-button" class="comment-toggle-button">
+            Comentarios <i class="fas fa-comment-dots"></i>
+        </button>
+        <!-- Botón para donaciones con menú desplegable -->
+        <div class="donate-dropdown-container">
+            <div class="donate-dropdown">
+                <button id="donate-button" class="donate-corner-button">
+                    Donar <i class="fas fa-hand-holding-usd"></i> <span class="arrow-down">▼</span>
+                </button>
+                <div class="dropdown-content" id="donate-options">
+                    <div class="donation-option astropay-option">
+                        <p>Copia mi CVU de AstroPay:</p>
+                        <span class="cvu-text" id="astropay-cvu">0000177500000007475928</span>
+                        <button class="copy-cvu-button">Copiar CVU</button>
+                        <span class="copy-message" id="astropay-copy-message"></span>
+                    </div>
+                    <a href="https://link.mercadopago.com.ar/bravoxv" target="_blank" class="donation-option mercadopago-option">
+                        Donar con Mercado Pago
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contenedor principal del sitio -->
     <div class="container">
         <header>
+            <!-- Asegúrate de reemplazar "tu_foto_de_perfil.jpg" con la ruta correcta de tu imagen -->
+            <img src="tu_foto_de_perfil.jpg" alt="Tu Foto de Perfil" class="profile-pic">
             <h1>ICEGAMING</h1>
             <p>¡Bienvenido! Aquí encontrarás todos mis enlaces a redes sociales y canales de streaming.</p>
         </header>
@@ -21,10 +63,18 @@
         <footer>
             <p>© 2024 ICEGAMING. Todos los derechos reservados.</p>
         </footer>
+
+        <!-- Sección de comentarios oculta por defecto -->
+        <div id="comments-section" class="comments-section">
+            <h2>Comentarios</h2>
+            <div class="utterances-container"></div>
+        </div>
     </div>
 
-    <!-- Nieve delante -->
+    <!-- Contenedor para la nieve que va por delante de la UI -->
     <div class="snowflakes-container front" id="snowFront"></div>
     
+    <!-- Enlace al script principal. Asegúrate de que este archivo exista en la ruta 'js/script.js' -->
     <script src="js/script.js"></script>
 </body>
+</html>
